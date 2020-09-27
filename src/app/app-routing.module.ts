@@ -4,13 +4,16 @@ import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
+import { AppGuard } from './app.guard';
+
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   {
     path: 'pages',
     // loadChildren: './pages/pages.module#PagesModule'
-    loadChildren: () => import("./pages/pages.module").then(m => m.PagesModule)
+    loadChildren: () => import("./pages/pages.module").then(m => m.PagesModule),
+    canActivate: [AppGuard],
   },
   { path: '**', component: PageNotFoundComponent }
 ];
